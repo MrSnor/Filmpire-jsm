@@ -8,11 +8,11 @@ export default makeStyles(() => ({
   },
   toolbar: {
     height: '70px',
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   content: {
     flexGrow: 1,
     padding: '2em',
-    border: 'solid coral 2px',
+    // border: 'solid coral 2px',
   },
 }));
