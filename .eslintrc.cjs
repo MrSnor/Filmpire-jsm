@@ -32,5 +32,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to', 'hrefLeft', 'hrefRight'], aspects: ['noHref', 'invalidHref', 'preferButton'] }],
     // rule to allow import devDependencies
     'import/no-extraneous-dependencies': ['warn', { devDependencies: true }],
+    // lint for unused variables
+    'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
   },
 };
