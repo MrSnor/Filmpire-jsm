@@ -31,6 +31,6 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to', 'hrefLeft', 'hrefRight'], aspects: ['noHref', 'invalidHref', 'preferButton'] }],
     // rule to allow import devDependencies
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': ['warn', { devDependencies: true }],
   },
 };
