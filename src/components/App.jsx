@@ -27,8 +27,3 @@ function App() {
 }
 
 export default App;
-
-function Home(params) {
-  return <h1>Home</h1>;
-}
-
