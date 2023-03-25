@@ -7,7 +7,7 @@ specifiers:
   '@mui/icons-material': ^5.11.11
   '@mui/material': ^5.11.12
   '@mui/styles': ^5.11.12
-  '@reduxjs/toolkit': ^1.9.3
+  '@reduxjs/toolkit': ^1.8.2
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
   '@vitejs/plugin-react': ^3.1.0
@@ -20,7 +20,7 @@ specifiers:
   eslint-plugin-react-hooks: ^4.3.0
   react: ^18.2.0
   react-dom: ^18.2.0
-  react-redux: ^8.0.5
+  react-redux: ^8.0.2
   react-router-dom: ^6.9.0
   vite: ^4.1.0
   vite-plugin-eslint: ^1.8.1
@@ -32,11 +32,11 @@ dependencies:
   '@mui/icons-material': 5.11.11_ao76n7r2cajsoyr3cbwrn7geoi
   '@mui/material': 5.11.12_xqeqsl5kvjjtyxwyi3jhw3yuli
   '@mui/styles': 5.11.12_pmekkgnqduwlme35zpnqhenc34
-  '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
+  '@reduxjs/toolkit': 1.8.2_react@18.2.0
   axios: 1.3.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-redux: 8.0.5_3xleytyzprlgycb2ded54tx72i
+  react-redux: 8.0.2_ctrls2ti7t7iutxbwkm5ipogyy
   react-router-dom: 6.9.0_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
@@ -926,11 +926,11 @@ packages:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
-  /@reduxjs/toolkit/1.9.3_k4ae6lp43ej6mezo3ztvx6pykq:
-    resolution: {integrity: sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg==}
+  /@reduxjs/toolkit/1.8.2_react@18.2.0:
+    resolution: {integrity: sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
-      react-redux: ^7.2.1 || ^8.0.2
+      react-redux: ^7.2.1 || ^8.0.0-beta
     peerDependenciesMeta:
       react:
         optional: true
@@ -939,7 +939,6 @@ packages:
     dependencies:
       immer: 9.0.19
       react: 18.2.0
-      react-redux: 8.0.5_3xleytyzprlgycb2ded54tx72i
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
       reselect: 4.1.7
@@ -2612,8 +2611,8 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-redux/8.0.5_3xleytyzprlgycb2ded54tx72i:
-    resolution: {integrity: sha512-Q2f6fCKxPFpkXt1qNRZdEDLlScsDWyrgSj0mliK59qU6W5gvBiKkdMEG2lJzhd1rCctf0hb6EtePPLZ2e0m1uw==}
+  /react-redux/8.0.2_ctrls2ti7t7iutxbwkm5ipogyy:
+    resolution: {integrity: sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
       '@types/react-dom': ^16.8 || ^17.0 || ^18.0
@@ -2642,6 +2641,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
+      redux: 4.2.1
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
