@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { tmdbApi } from '../services/TMDB';
 
+// FIXME : fix middleware issue(warning) and up versions of redux packages
+
 /**
  * @description This function creates a new Redux store with the specified configuration options. It includes a reducer for the TMDB API.
  *
