@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const tmdbApiKey = import.meta.env.VITE_APP_TMDB_KEY;
+const tmdbApiKey = import.meta.env.VITE_TMDB_KEY;
 
 // Set the current page to 1
 const page = 1;
