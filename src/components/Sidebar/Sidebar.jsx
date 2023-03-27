@@ -3,6 +3,7 @@ import { Divider, List, ListItem, ListItemText, ListSubheader, ListItemIcon, Box
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 
+import { useGetGenresQuery } from '../../services/TMDB';
 import useStyles from './styles';
 
 const categories = [
@@ -11,21 +12,14 @@ const categories = [
   { label: 'Upcoming', value: 'upcoming' },
 ];
 
-const demoCategories = [
-  { label: 'Comedy', value: 'comedy' },
-  { label: 'Action', value: 'action' },
-  { label: 'Horror', value: 'horror' },
-  { label: 'Animation', value: 'animation' },
-];
-
-// const demoCategories = ['Comedy', 'Action', 'Horror', 'Animation'];
-
 const redLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
 const blueLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
 
 export function Sidebar({ setMobileOpen }) {
   const theme = useTheme();
   const classes = useStyles();
+  const { data, isFetching } = useGetGenresQuery();
+  console.log('🚀 ~ Sidebar ~ data:', data);
 
   return (
     <div>
@@ -58,13 +52,17 @@ export function Sidebar({ setMobileOpen }) {
         <ListSubheader>
           Genres
         </ListSubheader>
-        {demoCategories.map(({ value, label }) => (
-          <Link key={value} className={classes.links} to="/">
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress size="4rem" />
+          </Box>
+        ) : data.genres.map(({ name, id }) => (
+          <Link key={name} className={classes.links} to="/">
             <ListItem onClick={() => {}} button>
               {/* <ListItemIcon>
                 <img src={redLogo} alt="" className={classes.genreImages} height={30} />
               </ListItemIcon> */}
-              <ListItemText primary={label} />
+              <ListItemText primary={name} />
             </ListItem>
           </Link>
         ))}

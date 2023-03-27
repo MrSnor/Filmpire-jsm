@@ -17,6 +17,11 @@ export const tmdbApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
   // Set the endpoints to interact with the TMDB API
   endpoints: (builder) => ({
+    // Get genres
+    getGenres: builder.query({
+      query: () => `genre/movie/list?api_key=${tmdbApiKey}`,
+    }),
+
     // Get popular movies from the API by page
     getMovies: builder.query({
       // Set the query to fetch popular movies by page with the TMDB API
@@ -27,6 +32,7 @@ export const tmdbApi = createApi({
 
 // Destructure the `useGetMoviesQuery` function from the `tmdbApi` object
 export const {
+  useGetGenresQuery,
   useGetMoviesQuery,
 } = tmdbApi;
 
