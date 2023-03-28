@@ -2,9 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const tmdbApiKey = import.meta.env.VITE_TMDB_KEY;
 
-// Set the current page to 1
-const page = 1;
-
 /**
  * @description This function initializes the TMDB API by creating a new instance of the `createApi` function with the specified configuration options.
  *
@@ -22,10 +19,22 @@ export const tmdbApi = createApi({
       query: () => `genre/movie/list?api_key=${tmdbApiKey}`,
     }),
 
-    // Get popular movies from the API by page
     getMovies: builder.query({
       // Set the query to fetch popular movies by page with the TMDB API
-      query: () => `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
+      query: ({ genreIdOrCategoryName, page }) => {
+        // Get Movies by Category
+        if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'string') {
+          return `movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbApiKey}`;
+        }
+
+        // Get movies by Genre
+        if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'number') {
+          return `discover/movie?with_genres=${genreIdOrCategoryName}&api_key=${tmdbApiKey}&sort_by=popularity.desc&include_adult=true&include_video=false&page=${page}`;
+        }
+
+        // Get popular movies from the API by page
+        return `movie/popular?page=${page}&api_key=${tmdbApiKey}`;
+      },
     }),
   }),
 });

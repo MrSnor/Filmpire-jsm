@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react';
 import { Box, CircularProgress, useMediaQuery, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 import { useGetMoviesQuery } from '../../services/TMDB';
 import MovieList from '../MovieList/MovieList';
 
 export function Movies() {
-  const { data, error, isFetching } = useGetMoviesQuery();
-  console.log('🚀 ~ Movies ~ data:', data);
+  // Using useState hook to set the initial page value to 1
+  const [page, setPage] = useState(1);
+  // Using useSelector hook to get the current genreIdOrCategoryName from the state
+  const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory);
+  // Using useGetMoviesQuery hook to get data, error and isFetching values
+  const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page });
 
   // checks if data is being fetched
   if (isFetching) {
