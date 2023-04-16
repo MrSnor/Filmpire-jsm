@@ -18,12 +18,20 @@ export const genreOrCategory = createSlice({
     selectGenreOrCategory: (state, action) => {
       // Update the value of the genreIdOrCategoryName property in the state
       state.genreIdOrCategoryName = action.payload;
+      // Reset the searchQuery property to an empty string
+      state.searchQuery = '';
+    },
+    // Reducer to search for a movie
+    searchMovie: (state, action) => {
+      console.log(action.payload);
+      // Update the value of the searchQuery property in the state
+      state.searchQuery = action.payload;
     },
   },
 });
 
 // Export the actions from the slice
-export const { selectGenreOrCategory } = genreOrCategory.actions;
+export const { selectGenreOrCategory, searchMovie } = genreOrCategory.actions;
 
 // Export the reducer from the slice
 export default genreOrCategory.reducer;

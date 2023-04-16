@@ -10,9 +10,9 @@ export function Movies() {
   // Using useState hook to set the initial page value to 1
   const [page, setPage] = useState(1);
   // Using useSelector hook to get the current genreIdOrCategoryName from the state
-  const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory);
+  const { genreIdOrCategoryName, searchQuery } = useSelector((state) => state.currentGenreOrCategory);
   // Using useGetMoviesQuery hook to get data, error and isFetching values
-  const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page });
+  const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page, searchQuery });
 
   // checks if data is being fetched
   if (isFetching) {

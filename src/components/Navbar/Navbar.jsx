@@ -7,12 +7,15 @@ import { useTheme } from '@mui/material/styles';
 
 // import { Sidebar } from '..';
 import { Sidebar } from '../Sidebar/Sidebar';
+
+import { Search } from '../Search/Search';
+
 import useStyles from './styles';
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
-  const isMobile = useMediaQuery('(max-width:600px');
+  const isMobile = useMediaQuery('(max-width:600px)');
   const theme = useTheme();
   const isAuthenticated = true;
 
@@ -41,7 +44,7 @@ export function Navbar() {
           </IconButton>
 
           {/* search bar */}
-          {!isMobile && 'Search...'}
+          {!isMobile && <Search />}
 
           {/* profile icon */}
           <div>
@@ -66,7 +69,7 @@ export function Navbar() {
           </div>
 
           {/* search bar */}
-          {isMobile && 'Search...'}
+          {isMobile && <Search />}
         </Toolbar>
       </AppBar>
 

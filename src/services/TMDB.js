@@ -21,7 +21,11 @@ export const tmdbApi = createApi({
 
     getMovies: builder.query({
       // Set the query to fetch popular movies by page with the TMDB API
-      query: ({ genreIdOrCategoryName, page }) => {
+      query: ({ genreIdOrCategoryName, page, searchQuery }) => {
+        // Get Movies by Search
+        if (searchQuery) {
+          return `search/movie?api_key=${tmdbApiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`;
+        }
         // Get Movies by Category
         if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'string') {
           return `movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbApiKey}`;
