@@ -6,6 +6,25 @@ import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 import { useGetMoviesQuery } from '../../services/TMDB';
 import MovieList from '../MovieList/MovieList';
 
+/**
+ * Renders a list of movies based on the user's search query and the selected genre or category.
+ * It uses the `useState` hook to manage the current page number, and the `useSelector` hook
+ * to retrieve the current genre or category and search query from the Redux store. It also uses
+ * the `useGetMoviesQuery` hook to fetch movie data from a remote API.
+ *
+ * If the `isFetching` property of the `useGetMoviesQuery` hook is `true`, a loading spinner is
+ * displayed until the data is fetched. If there are no movies that match the search query,
+ * a message is displayed indicating this. If an error occurs while fetching data, an error
+ * message is displayed.
+ *
+ * @example
+ * // Example usage:
+ * <Movies />
+ *
+ * @returns {JSX.Element} A `MovieList` component that renders a list of movies based on the fetched data.
+ *
+ * @throws {string} If an error occurs while fetching data, an error message is thrown.
+ */
 export function Movies() {
   // Using useState hook to set the initial page value to 1
   const [page, setPage] = useState(1);

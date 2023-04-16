@@ -24,3 +24,5 @@
 2. use 'refetch' to retry fetching data after an error (maybe try in Movies component)
 
 3. show full name of movies as tooltip
+
+4. review and update comments after the project completion, as more changes might have been done since the time comments were added
