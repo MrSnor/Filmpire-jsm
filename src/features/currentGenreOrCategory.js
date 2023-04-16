@@ -23,7 +23,6 @@ export const genreOrCategory = createSlice({
     },
     // Reducer to search for a movie
     searchMovie: (state, action) => {
-      console.log(action.payload);
       // Update the value of the searchQuery property in the state
       state.searchQuery = action.payload;
     },

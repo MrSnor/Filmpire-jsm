@@ -25,7 +25,6 @@ export function Sidebar({ setMobileOpen }) {
   const dispatch = useDispatch();
   // Using useSelector hook to get the current genreIdOrCategoryName from the state
   const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory);
-  console.log('🚀 ~ Sidebar ~ genreIdOrCategoryName:', genreIdOrCategoryName);
 
   return (
     <div>
