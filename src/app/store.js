@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { tmdbApi } from '../services/TMDB';
 import genreOrCategoryReducer from '../features/currentGenreOrCategory';
+import userReducer from '../features/auth';
 
 // FIXME : fix middleware issue(warning) and up versions of redux packages
 
@@ -17,5 +18,6 @@ export default configureStore({
   reducer: {
     [tmdbApi.reducerPath]: tmdbApi.reducer,
     currentGenreOrCategory: genreOrCategoryReducer,
+    user: userReducer,
   },
 });
