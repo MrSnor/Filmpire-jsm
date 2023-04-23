@@ -20,10 +20,12 @@ function Movie({ movie, i }) {
               : 'https://via.placeholder.com/200x300/ccc.png'
 }
           />
-          <Typography className={classes.title} variant="h5">
-            {movie.title}
-          </Typography>
-          <Tooltip disableTouchListener title={`${movie.vote_average} / 10`}>
+          <Tooltip placement="top" disableTouchListener title={`${movie.title}`}>
+            <Typography className={classes.title} variant="h5">
+              {movie.title}
+            </Typography>
+          </Tooltip>
+          <Tooltip disableTouchListener title={`${movie.vote_average / 2} / 5`}>
             <div>
               <Rating readOnly value={movie.vote_average / 2} precision={0.1} />
             </div>
