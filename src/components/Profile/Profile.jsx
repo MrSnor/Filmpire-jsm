@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Typography, Button, Box } from '@mui/material';
+import { ExitToApp } from '@mui/icons-material';
 import { userSelector } from '../../features/auth';
 import { useStyles } from './styles';
 
@@ -9,18 +11,40 @@ export function Profile() {
   // get classes from styles
   const classes = useStyles();
 
+  // list of favorite movies
+  const favoriteMovies = [
+
+  ];
+
+  // logout function
+  const logout = () => {
+    localStorage.clear();
+
+    // reload page
+    // window.location.reload();
+    // or
+    window.location.href = '/';
+  };
+
   const { username, id } = user;
   return (
-    <div>
+    <Box>
       {/* Show user data */}
-      <h1>Profile</h1>
 
-      <div className={classes.profileData}>
-        <h2>{`name: ${username}`}</h2>
-        <h2>{`id: ${id}`}</h2>
-      </div>
-      <div />
-
-    </div>
+      <Box display="flex" justifyContent="space-between">
+        <Typography variant="h4" gutterBottom>My Profile</Typography>
+        <Button color="inherit" onClick={logout}>
+          Logout &nbsp; <ExitToApp />
+        </Button>
+      </Box>
+      {/* Show favorite movies */}
+      {!favoriteMovies.length
+        ? <Typography variant="h5" gutterBottom>No favorite movies</Typography>
+        : (
+          <Box>
+            <Typography variant="h5" gutterBottom>My favorite movies</Typography>
+          </Box>
+        )}
+    </Box>
   );
 }

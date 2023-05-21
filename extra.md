@@ -10,6 +10,7 @@
 5. finished 9. Switch Genre Functionality
 6. finished 4-Filmpire--> 10. Search Functionality
 7. finished 4-Filmpire--> 11. Authentication (assignment - access profile name/id from redux state and display in the profile component)
+8. finished 4-Filmpire--> 13. Finalizing Authentication
 
 ## Note
 
