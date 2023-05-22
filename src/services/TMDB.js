@@ -19,6 +19,7 @@ export const tmdbApi = createApi({
       query: () => `genre/movie/list?api_key=${tmdbApiKey}`,
     }),
 
+    // Get movies
     getMovies: builder.query({
       // Set the query to fetch popular movies by page with the TMDB API
       query: ({ genreIdOrCategoryName, page, searchQuery }) => {
@@ -40,6 +41,13 @@ export const tmdbApi = createApi({
         return `movie/popular?page=${page}&api_key=${tmdbApiKey}`;
       },
     }),
+
+    // TODO change getMovie to getMovieDetails
+    // Get movie details
+    getMovie: builder.query({
+      // TODO use the images to display additional images
+      query: (id) => `movie/${id}?api_key=${tmdbApiKey}&append_to_response=videos,credits,images`,
+    }),
   }),
 });
 
@@ -47,5 +55,6 @@ export const tmdbApi = createApi({
 export const {
   useGetGenresQuery,
   useGetMoviesQuery,
+  useGetMovieQuery,
 } = tmdbApi;
 
