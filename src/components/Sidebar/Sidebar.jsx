@@ -70,7 +70,7 @@ export function Sidebar({ setMobileOpen }) {
               {/* Adding an onClick event to the ListItem component that dispatches the selectGenreOrCategory action with the id as an argument */}
               <ListItem onClick={() => dispatch(selectGenreOrCategory(id))} button>
                 <ListItemIcon>
-                  <img src={genreIcons[name.toLowerCase()]} alt="" className={classes.genreImages} height={30} />
+                  <img src={genreIcons[name.toLowerCase()]} alt="" className={classes.genreImage} height={30} />
                 </ListItemIcon>
                 <ListItemText primary={name} />
               </ListItem>
