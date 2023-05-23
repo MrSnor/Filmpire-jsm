@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Divider, List, ListItem, ListItemText, ListSubheader, ListItemIcon, Box, CircularProgress } from '@mui/material';
+import { Divider, List, ListItem, ListItemText, ListSubheader, ListItemIcon, ListItemButton, Box, CircularProgress, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,12 +45,14 @@ export function Sidebar({ setMobileOpen }) {
         {categories.map(({ value, label }) => (
           <Link key={value} className={classes.links} to="/">
             {/* Adding an onClick event to the ListItem component that dispatches the selectGenreOrCategory action with the value as an argument */}
-            <ListItem onClick={() => dispatch(selectGenreOrCategory(value))} button>
-              <ListItemIcon>
-                <img src={genreIcons[label.toLowerCase()]} alt="" className={classes.genreImages} height={30} />
+            <ListItemButton style={{ padding: '5px 15px' }} className={classes.sidebarItem} onClick={() => dispatch(selectGenreOrCategory(value))}>
+              <ListItemIcon style={{ minWidth: '25px', marginRight: '10px' }}>
+                <img src={genreIcons[label.toLowerCase()]} alt="" className={classes.genreImage} />
               </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
+              <ListItemText>
+                <Typography variant="body2">{label}</Typography>
+              </ListItemText>
+            </ListItemButton>
           </Link>
         ))}
       </List>
@@ -68,12 +70,14 @@ export function Sidebar({ setMobileOpen }) {
           data.genres.map(({ name, id }) => (
             <Link key={name} className={classes.links} to="/">
               {/* Adding an onClick event to the ListItem component that dispatches the selectGenreOrCategory action with the id as an argument */}
-              <ListItem onClick={() => dispatch(selectGenreOrCategory(id))} button>
-                <ListItemIcon>
-                  <img src={genreIcons[name.toLowerCase()]} alt="" className={classes.genreImage} height={30} />
+              <ListItemButton style={{ padding: '5px 15px' }} onClick={() => dispatch(selectGenreOrCategory(id))}>
+                <ListItemIcon style={{ minWidth: '25px', marginRight: '10px' }}>
+                  <img src={genreIcons[name.toLowerCase()]} alt="" className={classes.genreImage} />
                 </ListItemIcon>
-                <ListItemText primary={name} />
-              </ListItem>
+                <ListItemText>
+                  <Typography variant="body2">{name}</Typography>
+                </ListItemText>
+              </ListItemButton>
             </Link>
           ))
         )}
