@@ -39,7 +39,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: '10px 0 !important',
     display: 'flex',
     justifyContent: 'space-around',
-    flexwrap: 'wrap',
+    flexWrap: 'wrap',
   },
 
   genreImage: {
@@ -47,13 +47,42 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: '10px',
   },
 
-  links: {
-    diplay: 'flex',
+  link: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+    padding: '5px',
+    borderRadius: '10px',
+    transition: 'all 0.4s ease-in-out',
+    // '&:hover': {
+    //   background: theme.palette.mode === 'dark' ? 'red' : theme.palette.primary.main,
+    //   color: theme.palette.mode === 'dark' ? 'black' : 'white',
+    // },
     [theme.breakpoints.down('sm')]: {
       padding: '0.5rem 1rem',
+    },
+    // nested class in JSS
+    // '&:hover $genreImage': {
+    //   filter: theme.palette.mode === 'dark' ? 'invert(0' : 'invert(1)',
+    // },
+  },
 
+  actorImage: {
+    width: '100%',
+    maxWidth: '7em',
+    height: '8em',
+    objectFit: 'cover',
+    borderRadius: '10%',
+  },
+
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
     },
   },
 }));
