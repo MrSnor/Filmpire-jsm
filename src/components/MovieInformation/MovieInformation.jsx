@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, ButtonGroup, Modal, Typography, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material';
+import { useState } from 'react';
+import { Button, ButtonGroup, Modal, Typography, Grid, Box, CircularProgress, useMediaQuery, Rating, Alert } from '@mui/material';
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack, Bookmark, BookmarkOutlined, BookmarkRemove, BookmarkAdd } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +27,8 @@ export function MovieInformation() {
     movieId: id,
     list: 'recommendations',
   });
-  // console.log('🚀 ~ MovieInformation ~ recommendedMovies:', recommendedMovies);
+
+  const [isOpen, setisOpen] = useState(false);
 
   const dispatch = useDispatch();
   const isMovieFavorited = true;
@@ -181,7 +182,7 @@ export function MovieInformation() {
                   IMDB
                 </Button>
                 {/* trailer button */}
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button onClick={() => setisOpen(true)} href="#" endIcon={<Theaters />}>
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -220,6 +221,33 @@ export function MovieInformation() {
           : <Box textAlign="center">Sorry, nothing was found.</Box>
           }
       </Box>
+      {/* Modal for movie trailer */}
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={isOpen}
+        onClose={() => setisOpen(false)}
+      >
+        {/* Modal content */}
+        {
+          movie?.videos?.results?.length > 0
+            ? (
+              <iframe
+                title="Trailer"
+                src={`https://www.youtube.com/embed/${movie?.videos?.results[0]?.key}`}
+                frameBorder="0"
+                autoPlay
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className={classes.video}
+              />
+            ) : (
+              // <Box border="2px solid red">
+              //   <Typography color="white" fontSize="2rem">Sorry, nothing was found.</Typography>
+              // </Box>
+              <Alert severity="error" onClose={() => setisOpen(false)}>Sorry, no trailer was found.</Alert>
+            )
+        }
+      </Modal>
     </Grid>
   );
 }
