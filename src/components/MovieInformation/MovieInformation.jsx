@@ -7,7 +7,8 @@ import axios from 'axios';
 
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
-import { useGetMovieQuery } from '../../services/TMDB';
+import { useGetMovieQuery, useGetRecommendedMoviesQuery } from '../../services/TMDB';
+import MovieList from '../MovieList/MovieList';
 
 import { useStyles } from './styles';
 import genreIcons from '../../assets/genres';
@@ -15,11 +16,19 @@ import genreIcons from '../../assets/genres';
 export function MovieInformation() {
   // get movie id from the URL
   const p = useParams();
-  console.log('🚀 ~ MovieInformation ~ p:', p);
+  // console.log('🚀 ~ MovieInformation ~ p:', p);
   const { id } = useParams();
   const classes = useStyles();
   // get movie details
   const { data: movie, isFetching, error } = useGetMovieQuery(id);
+
+  // get recommended movies
+  const { data: recommendedMovies, isFetching: isFetchingRecommended } = useGetRecommendedMoviesQuery({
+    movieId: id,
+    list: 'recommendations',
+  });
+  // console.log('🚀 ~ MovieInformation ~ recommendedMovies:', recommendedMovies);
+
   const dispatch = useDispatch();
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
@@ -199,6 +208,18 @@ export function MovieInformation() {
           </div>
         </Grid>
       </Grid>
+      {/* "You may like" section */}
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" align="center" textTransform="capitalize" gutterBottom>
+          You may like
+        </Typography>
+        {/* loop through the recommended movies */}
+        {
+        recommendedMovies?.total_results > 0
+          ? <MovieList movies={recommendedMovies} numberOfMovies={12} />
+          : <Box textAlign="center">Sorry, nothing was found.</Box>
+          }
+      </Box>
     </Grid>
   );
 }
