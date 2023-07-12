@@ -4,6 +4,13 @@ import { Movie } from '../Movie/Movie';
 
 import useStyles from './styles';
 
+/**
+ * Renders a list of movies.
+ *
+ * @param {object} movies - The list of movies to be rendered.
+ * @param {number} numberOfMovies - The maximum number of movies to be displayed.
+ * @return {JSX.Element} A grid container that holds a list of movies.
+ */
 export default function MovieList({ movies, numberOfMovies }) {
   const classes = useStyles();
 
