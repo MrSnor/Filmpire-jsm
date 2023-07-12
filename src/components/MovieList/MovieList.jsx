@@ -4,7 +4,7 @@ import { Movie } from '../Movie/Movie';
 
 import useStyles from './styles';
 
-export default function MovieList({ movies }) {
+export default function MovieList({ movies, numberOfMovies }) {
   const classes = useStyles();
 
   return (
@@ -13,7 +13,7 @@ export default function MovieList({ movies }) {
       {/* The movies are mapped over and displayed using the Movie component */}
       {/* Optional chaining (the "?" operator) is used here to safely access the results property */}
       {/* If the movies object is undefined or null, the expression will short-circuit and return undefined */}
-      {movies?.results.map((movie, i) => (
+      {movies?.results.slice(0, numberOfMovies).map((movie, i) => (
         // Each movie is given a unique key based on its index
         <Movie key={i} movie={movie} i={i} />
       ))}

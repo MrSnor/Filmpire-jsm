@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, ButtonGroup, Modal, Typography, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material';
+import { useState } from 'react';
+import { Button, ButtonGroup, Modal, Typography, Grid, Box, CircularProgress, useMediaQuery, Rating, Alert } from '@mui/material';
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack, Bookmark, BookmarkOutlined, BookmarkRemove, BookmarkAdd } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,8 @@ import axios from 'axios';
 
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
-import { useGetMovieQuery } from '../../services/TMDB';
+import { useGetMovieQuery, useGetRecommendedMoviesQuery } from '../../services/TMDB';
+import MovieList from '../MovieList/MovieList';
 
 import { useStyles } from './styles';
 import genreIcons from '../../assets/genres';
@@ -15,11 +16,20 @@ import genreIcons from '../../assets/genres';
 export function MovieInformation() {
   // get movie id from the URL
   const p = useParams();
-  console.log('🚀 ~ MovieInformation ~ p:', p);
+  // console.log('🚀 ~ MovieInformation ~ p:', p);
   const { id } = useParams();
   const classes = useStyles();
   // get movie details
   const { data: movie, isFetching, error } = useGetMovieQuery(id);
+
+  // get recommended movies
+  const { data: recommendedMovies, isFetching: isFetchingRecommended } = useGetRecommendedMoviesQuery({
+    movieId: id,
+    list: 'recommendations',
+  });
+
+  const [isOpen, setisOpen] = useState(false);
+
   const dispatch = useDispatch();
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
@@ -172,7 +182,7 @@ export function MovieInformation() {
                   IMDB
                 </Button>
                 {/* trailer button */}
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button onClick={() => setisOpen(true)} href="#" endIcon={<Theaters />}>
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -199,6 +209,45 @@ export function MovieInformation() {
           </div>
         </Grid>
       </Grid>
+      {/* "You may like" section */}
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" align="center" textTransform="capitalize" gutterBottom>
+          You may like
+        </Typography>
+        {/* loop through the recommended movies */}
+        {
+        recommendedMovies?.total_results > 0
+          ? <MovieList movies={recommendedMovies} numberOfMovies={12} />
+          : <Box textAlign="center">Sorry, nothing was found.</Box>
+          }
+      </Box>
+      {/* Modal for movie trailer */}
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={isOpen}
+        onClose={() => setisOpen(false)}
+      >
+        {/* Modal content */}
+        {
+          movie?.videos?.results?.length > 0
+            ? (
+              <iframe
+                title="Trailer"
+                src={`https://www.youtube.com/embed/${movie?.videos?.results[0]?.key}`}
+                frameBorder="0"
+                autoPlay
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className={classes.video}
+              />
+            ) : (
+              // <Box border="2px solid red">
+              //   <Typography color="white" fontSize="2rem">Sorry, nothing was found.</Typography>
+              // </Box>
+              <Alert severity="error" onClose={() => setisOpen(false)}>Sorry, no trailer was found.</Alert>
+            )
+        }
+      </Modal>
     </Grid>
   );
 }
