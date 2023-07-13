@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Box, CircularProgress, useMediaQuery, Typography } from '@mui/material';
+// import { Pagination } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 import { useGetMoviesQuery } from '../../services/TMDB';
 import MovieList from '../MovieList/MovieList';
+import Pagination from '../Pagination/Pagination';
 
 /**
  * Renders a list of movies based on the user's search query and the selected genre or category.
@@ -32,6 +34,11 @@ export function Movies() {
   const { genreIdOrCategoryName, searchQuery } = useSelector((state) => state.currentGenreOrCategory);
   // Using useGetMoviesQuery hook to get data, error and isFetching values
   const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page, searchQuery });
+
+  // function to handle pagination (for Pagination of material UI component  )
+  // const handlePageChange = (event, value) => {
+  //   setPage(value);
+  // };
 
   // checks if data is being fetched
   if (isFetching) {
@@ -63,6 +70,15 @@ export function Movies() {
   return (
     <div>
       <MovieList movies={data} />
+      {/* TODO add pagination from material UI */}
+      {/* functional pagination using mui pagination component */}
+      {/* <Pagination
+        count={data.total_pages}
+        page={page}
+        onChange={handlePageChange}
+      /> */}
+
+      <Pagination currentPage={page} totalPages={data.total_pages} setCurrentPage={setPage} />
     </div>
   );
 }
