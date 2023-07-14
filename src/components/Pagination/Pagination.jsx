@@ -24,14 +24,14 @@ function Pagination({ currentPage, setCurrentPage, totalPages }) {
   return (
     <div>
       <div className={classes.container}>
-        <Button startIcon={<ArrowBack />} className={classes.button} color="primary" variant="contained" onClick={handlePrev}>
-          Prev
+        <Button size="small" startIcon={<ArrowBack />} className={classes.button} color="primary" variant="contained" onClick={handlePrev}>
+          <Typography variant="button">Prev</Typography>
         </Button>
-        <Typography variant="h4">
+        <Typography variant="button" marginY="auto">
           {`Page ${currentPage} of ${totalPages}`}
         </Typography>
-        <Button startIcon={<ArrowForward />} className={classes.button} color="primary" variant="contained" onClick={handleNext}>
-          Next
+        <Button size="small" startIcon={<ArrowForward />} className={classes.button} color="primary" variant="contained" onClick={handleNext}>
+          <Typography variant="button">Next</Typography>
         </Button>
       </div>
     </div>
