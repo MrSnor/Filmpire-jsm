@@ -35,6 +35,10 @@ export function Movies() {
   // Using useGetMoviesQuery hook to get data, error and isFetching values
   const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page, searchQuery });
 
+  // use useMediaQuery to manage number of movies screen wise
+  const largeScreen = useMediaQuery((theme) => theme.breakpoints.only('lg'));
+  const numberOfMovies = largeScreen ? 16 : 18;
+
   // function to handle pagination (for Pagination of material UI component  )
   // const handlePageChange = (event, value) => {
   //   setPage(value);
@@ -69,7 +73,8 @@ export function Movies() {
   // If data was successfully fetched and there are results, the MovieList component is rendered
   return (
     <div>
-      <MovieList movies={data} />
+      <MovieList movies={data} numberOfMovies={numberOfMovies} />
+
       {/* TODO add pagination from material UI */}
       {/* functional pagination using mui pagination component */}
       {/* <Pagination
