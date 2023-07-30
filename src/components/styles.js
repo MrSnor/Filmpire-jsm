@@ -13,6 +13,7 @@ export default makeStyles(() => ({
   content: {
     flexGrow: 1,
     padding: '2em',
+    width: '100%',
     // border: 'solid coral 2px',
   },
 }));

@@ -110,7 +110,7 @@ export function MovieInformation() {
           </Box>
           {/* Show runtime and language */}
           <Typography variant="h6" align="center" gutterBottom>
-            {movie?.runtime}min {movie?.spoken_languages.length > 0 ? `/ (${movie?.spoken_languages[0].name})` : ''}
+            {movie?.runtime}min {movie?.spoken_languages.length > 0 ? `| Language: ${movie?.spoken_languages[0].name}` : ''}
           </Typography>
         </Grid>
 

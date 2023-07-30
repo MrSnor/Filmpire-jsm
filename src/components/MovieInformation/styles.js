@@ -17,12 +17,13 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '20px',
     boxShadow: '0px 0px 15px -5px rgba(0, 0, 0, 0.75)',
     width: '80%',
+    marginBottom: '20px',
 
     // breakpoint for tablet
     [theme.breakpoints.down('md')]: {
       margin: '0 auto',
       width: '100%',
-      height: '600px',
+      // height: '600px',
     },
 
     // breakpoint for mobile

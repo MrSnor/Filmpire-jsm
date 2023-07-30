@@ -30,6 +30,12 @@ export function Search() {
   // Get the classes object from the useStyles function
   const classes = useStyles();
 
+  // hide the search field if it is not the home page
+  const location = useLocation();
+  if (location.pathname !== '/') {
+    return null;
+  }
+
   // Render the search field with Material-UI components and styles
   return (
     <div className={classes.searchContainer}>
