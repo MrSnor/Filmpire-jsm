@@ -1,7 +1,7 @@
 import React from 'react';
 import { CssBaseline, Typography, Button, Grid } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Actors, MovieInformation, Profile, Movies, Navbar } from './index';
 
 import useStyles from './styles';
@@ -31,6 +31,7 @@ function App() {
         <div className={classes.toolbar} />
         <Routes>
           <Route path="/" element={<Movies />} />
+          <Route path="/approved" element={<Navigate to="/" />} />
           <Route path="/movie/:id" element={<MovieInformation />} />
           <Route path="/actors/:id" element={<Actors />} />
           <Route path="/profile/:id" element={<Profile />} />
