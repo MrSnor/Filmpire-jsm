@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Modal, Typography, Grid, Box, CircularProgress, useMediaQuery, Rating, Alert } from '@mui/material';
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack, Bookmark, BookmarkOutlined, BookmarkRemove, BookmarkAdd } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
@@ -6,21 +6,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
+import { useGetMovieQuery, useGetListQuery, useGetRecommendedMoviesQuery } from '../../services/TMDB';
+import { userSelector } from '../../features/auth';
 
-import { useGetMovieQuery, useGetRecommendedMoviesQuery } from '../../services/TMDB';
 import MovieList from '../MovieList/MovieList';
 
 import { useStyles } from './styles';
 import genreIcons from '../../assets/genres';
 
 export function MovieInformation() {
+  // get user
+  const userData = useSelector(userSelector);
+  // get account id
+  const accountId = userData.user.id;
   // get movie id from the URL
-  const p = useParams();
-  // console.log('🚀 ~ MovieInformation ~ p:', p);
   const { id } = useParams();
   const classes = useStyles();
   // get movie details
   const { data: movie, isFetching, error } = useGetMovieQuery(id);
+
+  const { data: favoriteMovies, isFetching: isFetchingFavorite } = useGetListQuery({
+    listName: 'favorite/movies',
+    accountId,
+    sessionId: localStorage.getItem('session_id'),
+    page: 1,
+  });
+
+  const { data: watchlistMovies, isFetching: isFetchingWatchlist } = useGetListQuery({
+    listName: 'watchlist/movies',
+    accountId,
+    sessionId: localStorage.getItem('session_id'),
+    page: 1,
+  });
 
   // get recommended movies
   const { data: recommendedMovies, isFetching: isFetchingRecommended } = useGetRecommendedMoviesQuery({
@@ -31,14 +48,47 @@ export function MovieInformation() {
   const [isOpen, setisOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const isMovieFavorited = true;
-  const isMovieWatchlisted = true;
+  // const isMovieFavorited = true;
+  // const isMovieWatchlisted = true;
 
-  const addToFavorites = () => {
+  // states for favorites and watchlist
+  const [isMovieFavorited, setIsFavorited] = useState(false);
+  const [isMovieWatchlisted, setIsWatchlisted] = useState(false);
+
+  useEffect(() => {
+    setIsFavorited(!!favoriteMovies?.results?.find((currentMovie) => currentMovie?.id === movie?.id));
+  }, [favoriteMovies, movie]);
+
+  useEffect(() => {
+    setIsWatchlisted(!!watchlistMovies?.results?.find((currentMovie) => currentMovie?.id === movie?.id));
+  }, [watchlistMovies, movie]);
+
+  // async function to add to favorites
+  const addToFavorites = async () => {
+    const url = `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=${import.meta.env.VITE_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`;
+    const dataToBeSent = {
+      media_type: 'movie',
+      media_id: id,
+      favorite: !isMovieFavorited,
+    };
+
+    await axios.post(url, dataToBeSent);
+
+    setIsFavorited((prev) => !prev);
   };
 
-  const addToWatchlist = () => {
+  // async function to add to watchlist
+  const addToWatchlist = async () => {
+    const url = `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${import.meta.env.VITE_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`;
+    const dataToBeSent = {
+      media_type: 'movie',
+      media_id: id,
+      watchlist: !isMovieWatchlisted,
+    };
 
+    await axios.post(url, dataToBeSent);
+
+    setIsWatchlisted((prev) => !prev);
   };
 
   // show loading spinner if fetching data
@@ -191,11 +241,11 @@ export function MovieInformation() {
               <ButtonGroup variant="outlined" size="small">
                 {/* Add to favourite button */}
                 {/* TODO check logic of favourite buton (maybe watchlist too) */}
-                <Button href="#" onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
+                <Button onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
                   {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
                 </Button>
                 {/* Add to watchlist button  */}
-                <Button href="#" onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <BookmarkRemove /> : <BookmarkAdd />}>
+                <Button onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <BookmarkRemove /> : <BookmarkAdd />}>
                   Watchlist
                 </Button>
                 {/* go home back burron */}
